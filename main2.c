@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-// Helper functions declarations
+
 int find_newline(const char *s) {
     int i = 0;
     while (s && s[i]) {
