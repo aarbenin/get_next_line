@@ -75,14 +75,15 @@ char *get_next_line(int fd) {
         remainder = temp;
 
         newline_index = find_newline(remainder);
-        if (newline_index >= 0) {
-    remainder[newline_index] = '\0';
-    line = strdup(remainder);
-    char *new_remainder = strdup(remainder + newline_index + 1);
-    free(remainder);
-    remainder = new_remainder;
-    break;
-}
+        if (newline_index >= 0) 
+		{
+			remainder[newline_index] = '\0';
+			line = strdup(remainder);
+			char *new_remainder = strdup(remainder + newline_index + 1);
+			free(remainder);
+			remainder = new_remainder;
+			break;
+		}
 
     }
 
@@ -106,7 +107,7 @@ int	main(void)
 	int	i;
 	char *filename;
 
-	filename = "text.txt";
+	filename = "text3.txt";
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -116,8 +117,9 @@ int	main(void)
 	i = 0;
 	while (i <= 10)
 	{
-		
+		printf("%d: ", i);
 		run_test(fd);
+		i++;
 		
 	}
 	close(fd);

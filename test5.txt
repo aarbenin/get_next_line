@@ -1,0 +1,1 @@
+This is a very long line without any newlines but with a lot of characters to test the behavior of the get_next_line function when reading very long lines in a single go.
