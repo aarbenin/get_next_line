@@ -34,34 +34,31 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *remainder, char *buff) //takes old remainder and free it
+char	*ft_strjoin(char *remainder, char *buffer) 
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
+	size_t	rem_len;
+	size_t	buff_len;
+	char	*result;
+	char	*result_ptr;
 
 	if (!remainder)
-	{
-		remainder = (char *)malloc(sizeof(char));
-		if (!remainder)
-			return (NULL);
-		remainder[0] = '\0';
-	}
-	if (!buff)
+		rem_len = 0;
+	else
+		rem_len = ft_strlen(remainder);
+	if (!buffer)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(remainder) + ft_strlen(buff)) + 1));
-	if (str == NULL)
+	buff_len = ft_strlen(buffer);
+	result = malloc(sizeof(char) * (rem_len + buff_len + 1));
+	if (!result)
 		return (NULL);
-	i = -1;
-	j = 0;
-	if (remainder)
-		while (remainder[++i] != '\0')
-			str[i] = remainder[i];
-	while (buff[j] != '\0')
-		str[i++] = buff[j++];
-	str[ft_strlen(remainder) + ft_strlen(buff)] = '\0';
-	free(remainder);
-	return (str);
+	result_ptr = result;
+	while (remainder && *remainder)
+		*result++ = *remainder++;
+	while (*buffer)
+		*result++ = *buffer++;	
+	*result = '\0';
+	free(remainder - rem_len);
+	return (result_ptr);
 }
 
 char	*extract_line(char *remainder)

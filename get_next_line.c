@@ -34,7 +34,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*join_and_free(char *remainder, char *buffer) //takes old remainder and free it
+char	*join_and_free(char *remainder, char *buffer)
 {
 	size_t i = 0;
     size_t j = 0;
@@ -64,24 +64,39 @@ char	*join_and_free(char *remainder, char *buffer) //takes old remainder and fre
     return str;
 }
 
-char	*join2(char *remainder, char *buffer)
+char	*merge_remainder(char *remainder, char *buffer)
 {
-	char	*joined_str;
+	char	*result;
 	size_t	rem_len;
 	size_t	buff_len;
+	size_t	i;
+	size_t	j;
 
-	
-	rem_len = ft_strlen(remainder);
-	buff_len = ft_strlen(buffer);
-	joined_str = (char *)malloc(sizeof(char) * (rem_len + buff_len + 1));
-	if (!joined_str)
+	i = 0;
+	j = 0;
+	if (!remainder)
+		rem_len = 0;
+	else
+		rem_len = ft_strlen(remainder);
+	if (!buffer)
 		return (NULL);
-	
-
-	
+	buff_len = ft_strlen(buffer);
+	result = (char *)malloc(sizeof(char) * (rem_len + buff_len + 1));
+	if (!result)
+		return (NULL);
+	result_ptr = result;
+	while (remainder && remainder[i++])
+		result[i] = reminder[i];
+	while ( buffer[j])
+	{
+		result[i++] = buffer[j++]
+	}
+	result[i] = '\0';
+	free(remainder);
+	return (result_ptr);
 }
 
-char	read_to_remainder(int fd, char *remainder)
+char	*read_to_remainder(int fd, char *remainder)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
@@ -92,21 +107,22 @@ char	read_to_remainder(int fd, char *remainder)
 	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
-	while (bytes_read != 0 && !ft_strchr('/n', remainder))
+	while (!ft_strchr(remainder, '\n') && bytes_read != 0)
+
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read = -1)
+		if (bytes_read == -1)
 			return (NULL);
 		buffer[bytes_read] = '\0';
-		remainder = join_and_free(remainder, buffer);
+		remainder = merge_remainder(remainder, buffer);
 		if (!remainder)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		free(buffer);
-		return(remainder);
 	}
+	free(buffer);
+	return(remainder);
 }
 
 
@@ -120,6 +136,7 @@ char	*get_next_line(int fd)
 	static char	*remainder;
 	char		*line;
 	remainder = read_to_remainder(fd, remainder);
+	
 
 	return (remainder);
 }
@@ -136,17 +153,15 @@ int	main(void)
 
 	fd1 = open("test2.txt", O_RDONLY);
 
-	/*i = 1;
+	i = 1;
 	while (i < 7)
 	{
 		line = get_next_line(fd1);
-		printf("line %d:	%s", i, line);
+		printf("line %02d: %s", i, line);
 		free(line);
 		
 		i++;
-	}*/
-
-	line = get_next_line(fd1);
+	}
 	close(fd1);
 	
 	return (0);

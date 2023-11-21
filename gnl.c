@@ -84,15 +84,15 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	int			line_index;
 
-	if (fd < 0 || BUFF_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = (char *)malloc(BUFF_SIZE + 1);
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
 	line = NULL;
 	while (1)
 	{
-		bytes_read = read(fd, buffer, BUFF_SIZE);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
 			free(buffer);
@@ -110,8 +110,8 @@ char	*get_next_line(int fd)
 			else
 			{
 				
-				free(remainder);
-				remainder = NULL;
+				//free(remainder);
+				//remainder = NULL;
 				break;
 			}
 		}
@@ -148,30 +148,27 @@ char	*get_next_line(int fd)
 
 //_______________Test_______________//
 
+int	main(void)
+{
+	char	*line;
+	int		i;
+	int		fd1;
 
+	fd1 = open("test2.txt", O_RDONLY);
 
-int main() {
-    const char *filename = "text6.txt"; 
-    int fd = open(filename, O_RDONLY);  
-
-    if (fd == -1) {
-        perror("Error opening file");
-        return 1;
-    }
-
-    char *line;
-    int line_count = 0;
-    while ((line = get_next_line(fd)) != NULL) {
-        printf("Line %d: %s", line_count, line);
-        free(line); 
-        line_count++;
-    }
-
-    close(fd); 
-    return 0;
+	i = 1;
+	while (i < 7)
+	{
+		line = get_next_line(fd1);
+		printf("line %02d: %s", i, line);
+		free(line);
+		
+		i++;
+	}
+	close(fd1);
+	
+	return (0);
 }
-
-
 
 
 
