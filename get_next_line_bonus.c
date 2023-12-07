@@ -126,73 +126,70 @@ char	*get_next_line(int fd)
 	return (line);
 }
 /*
-#include <stdio.h>
 #include <fcntl.h>
+#include <stdio.h>
 
-int main() 
+int	main(void)
 {
-    int fd1 = open("test1.txt", O_RDONLY);
-    int fd2 = open("test2.txt", O_RDONLY);
-    char *line;
+	int		fd1;
+	int		fd2;
+	char	*line;
 
-    if (fd1 == -1 || fd2 == -1) 
+	fd1 = open("test1.txt", O_RDONLY);
+	fd2 = open("test2.txt", O_RDONLY);
+	if (fd1 == -1 || fd2 == -1)
 	{
-        printf("Ошибка открытия файла.\n");
-        if (fd1 != -1) close(fd1);
-        if (fd2 != -1) close(fd2);
-        return 1;
-    }
-
-    line = get_next_line(fd1);
-    if (line) 
-	{
-        printf("FD %d: %s", fd1, line);
-        free(line);
-    }
+		printf("Error opening.\n");
+		if (fd1 != -1) close(fd1);
+		if (fd2 != -1) close(fd2);
+		return (1);
+	}
 	line = get_next_line(fd1);
-    if (line) 
+	if (line)
 	{
-        printf("FD %d: %s", fd1, line);
-        free(line);
-    }
-
-    line = get_next_line(fd2);
-    if (line) 
+		printf("FD %d: %s", fd1, line);
+		free(line);
+	}
+	line = get_next_line(fd1);
+	if (line)
 	{
-        printf("FD %d: %s", fd2, line);
-        free(line);
-    }
-	 line = get_next_line(fd1);
-    if (line) 
+		printf("FD %d: %s", fd1, line);
+		free(line);
+	}
+	line = get_next_line(fd2);
+	if (line)
 	{
-        printf("FD %d: %s", fd1, line);
-        free(line);
-    }
-	  line = get_next_line(fd2);
-    if (line) 
+		printf("FD %d: %s", fd2, line);
+		free(line);
+	}
+		line = get_next_line(fd1);
+	if (line)
 	{
-        printf("FD %d: %s", fd2, line);
-        free(line);
-    }
-
-    printf("Print something:\n");
-    line = get_next_line(STDIN_FILENO);
-    if (line) 
+		printf("FD %d: %s", fd1, line);
+		free(line);
+	}
+		line = get_next_line(fd2);
+	if (line)
 	{
-        printf("STDIN: %s", line);
-        free(line);
-    }
-
-	  line = get_next_line(fd2);
-    if (line) 
+		printf("FD %d: %s", fd2, line);
+		free(line);
+	}
+	printf("\n\nTesting standard input.\n");
+	printf("Print something (ctrl + C to quit):\n");
+	line = get_next_line(STDIN_FILENO);
+	if (line)
 	{
-        printf("FD %d: %s", fd2, line);
-        free(line);
-    }
-
-    close(fd1);
-    close(fd2);
-
-    return 0;
+		printf("STDIN: %s", line);
+		free(line);
+	}
+		line = get_next_line(fd2);
+	if (line)
+	{
+		printf("FD %d: %s", fd2, line);
+		free(line);
+	}
+	close(fd1);
+	close(fd2);
+	return (0);
 }
 */

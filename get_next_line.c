@@ -116,35 +116,39 @@ char	*get_next_line(int fd)
 	remainder = update_remainder(remainder);
 	return (line);
 }
-/*#include <stdio.h>
+
+/*
+#include <stdio.h>
 #include <fcntl.h>
 
-int main() 
+int	main(void)
 {
-    int fd = open("test1.txt", O_RDONLY);
-    char *line1;
+	int fd = open("test1.txt", O_RDONLY);
+	char *line1;
 
-    if (fd == -1) 
+	if (fd == -1)
 	{
-        printf("Ошибка открытия файла.\n");
-        return 1;
-    }
+		printf("Error opening.\n");
+		return (1);
+	}
 
-    while ((line1 = get_next_line(fd)) != NULL) 
+	while ((line1 = get_next_line(fd)) != NULL)
 	{
-        printf("%s", line1);
-        free(line1);
-    }
-    close(fd);
+		printf("%s", line1);
+		free(line1);
+	}
+	close(fd);
 
 	char *line2;
 
-    printf("Print something:\n");
+	printf("\n\nTesting standard input.\n");
+	printf("Print something (ctrl + C to quit):\n");
 
-    while ((line2 = get_next_line(STDIN_FILENO)) != NULL) {
-        printf("%s", line2);
-        free(line2);
-    }
+	while ((line2 = get_next_line(STDIN_FILENO)) != NULL)
+	{
+		printf("%s", line2);
+		free(line2);
+	}
 
-    return 0;
-}*/
+	return (0);
+} */
