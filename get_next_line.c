@@ -13,21 +13,26 @@
 
 char	*merge_remainder(char *remainder, char *buffer)
 {
+	size_t	rem_len;
+	size_t	buf_len;
 	char	*new_str;
 
-	if (!remainder)
+	rem_len = 0;
+	buf_len = ft_strlen(buffer);
+	if (remainder)
+		rem_len = ft_strlen(remainder);
+	new_str = malloc(rem_len + buf_len + 1);
+	if (!new_str)
 	{
-		new_str = ft_strdup(buffer);
-		if (!new_str)
-			return (NULL);
-	}
-	else
-	{
-		new_str = ft_strjoin(remainder, buffer);
 		free(remainder);
-		if (!new_str)
-			return (NULL);
+		return (NULL);
 	}
+	if (remainder)
+	{
+		ft_memcpy(new_str, remainder, rem_len);
+		free(remainder);
+	}
+	ft_memcpy(new_str + rem_len, buffer, buf_len + 1);
 	return (new_str);
 }
 
@@ -84,22 +89,24 @@ char	*update_remainder(char *remainder)
 {
 	char	*newline;
 	char	*new_remainder;
+	size_t	new_len;
 
-	if (!remainder)
-		return (NULL);
 	newline = ft_strchr(remainder, '\n');
 	if (!newline)
 	{
 		free(remainder);
 		return (NULL);
 	}
-	new_remainder = ft_strdup(newline + 1);
-	free(remainder);
-	if (!new_remainder || *new_remainder == '\0')
+	new_len = ft_strlen(newline + 1);
+	new_remainder = malloc(new_len + 1);
+	if (!new_remainder)
 	{
-		free(new_remainder);
+		free(remainder);
 		return (NULL);
 	}
+	ft_memcpy(new_remainder, newline + 1, new_len);
+	new_remainder[new_len] = '\0';
+	free(remainder);
 	return (new_remainder);
 }
 
