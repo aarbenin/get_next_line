@@ -1,1 +1,0 @@
-This file contains only one line without a newline character
